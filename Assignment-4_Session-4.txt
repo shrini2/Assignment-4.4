@@ -1,0 +1,55 @@
+Assignment-4_Session-4
+
+Problem Statement:
+
+1. Use the package RcmdrPlugin.IPSUR.
+data(RcmdrTestDrive)
+and perform the below operations:
+
+a. Calculate the average salary by gender and smoking status.
+Answer-
+library(RcmdrPlugin.IPSUR)
+View(RcmdrPlugin.IPSUR)
+library(dplyr)
+RcmdrTestDrive %>% 
+  group_by(Smoking_Status = RcmdrTestDrive$smoking, Gender = RcmdrTestDrive$gender) %>%
+  summarise(mean_salary = mean(salary))
+
+
+b. Which gender has the highest mean salary?
+Answer-
+library(RcmdrPlugin.IPSUR)
+View(RcmdrPlugin.IPSUR)
+library(dplyr)
+Highest_Mean_Salary <- as.data.frame(RcmdrTestDrive %>%
+                                       group_by(Gender = RcmdrTestDrive$gender) %>%
+                                       summarise(mean_salary = mean(salary)))
+Highest_Mean_Salary[which.max(Highest_Mean_Salary$mean_salary),]
+
+# Gender Male has the highest mean salary
+
+c. Report the highest mean salary.
+Answer-
+library(RcmdrPlugin.IPSUR)
+View(RcmdrPlugin.IPSUR)
+library(dplyr)
+RcmdrTestDrive %>% 
+  group_by(Smoking_Status = RcmdrTestDrive$smoking, Gender = RcmdrTestDrive$gender) %>%
+  summarise(mean_salary = mean(salary)) %>% arrange(desc(mean_salary))
+
+# The highest mean salary(which is of Gender = Male as per above answer) is 743.3.
+
+d. Compare the spreads for the genders by calculating the standard deviation of salary by gender.
+Answer-
+library(RcmdrPlugin.IPSUR)
+library(dplyr)
+RcmdrTestDrive %>%group_by(Gender = RcmdrTestDrive$gender) %>%
+                                       summarise(sd_salary = sd(salary))
+
+# Table for the standard deviation of salary on the basis of Gender.
+  Gender sd_salary
+1 Female      131.
+2 Male        159
+
+# The Standard Deviation of the Male mean salary is more than the Female mean salary. Hence the spread of the Male salary
+is more than the Female salary.
